@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>books</title>
+      <link rel="stylesheet" href="../static/css/style.css">
+  </head>
+  <body>
+    <div class="container">
+        <ul>
+            {% for i in book %}
+            <li>
+                <h2>{{ i.title}}</h2>
+                <div class="img">
+                    <img src="{{ i.image.url }}" alt="">
+                </div>
+                <span class="date">Дата добавление: {{ i.create_date }} |</span>
+                <span class="date">Дата обновление: {{ i.update_date }}</span>
+                <p>{{ i.description }}</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+  </body>
+</html>
