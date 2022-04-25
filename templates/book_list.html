@@ -1,23 +1,29 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
       <meta charset="UTF-8">
       <title>books</title>
-      <link rel="stylesheet" href="../static/css/style.css">
+      <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+      <link rel="stylesheet" type="text/css" href="{% static "main.css" %}">
   </head>
   <body>
-    <div class="container">
-        <ul>
+    <div class="container book__container">
+        <div class="row gy-5">
             {% for book in books %}
-            <li>
-                <h2><a href="{{ book.id }}">{{ book.title }}</a></h2>
-                <div class="img">
-                    <img src="{{ book.image.url }}" alt="">
+            <div class="col-3">
+                <div class="card">
+                    <img src="{{ book.image.url }}" class="card-img-top book__img" alt="...">
+                    <div class="card-body books__cardbody">
+                      <h5 class="card-title">{{ book.title }}</h5>
+                      <p class="card-text">{{ book.author }}</p>
+                      <a href="{{ book.id }}/" class="btn btn-primary">Go details</a>
+                    </div>
                 </div>
-                <p>Автор: {{ book.author }}</p>
-            </li>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
+        <a href="/add-book/">Add new book</a>
     </div>
   </body>
 </html>
