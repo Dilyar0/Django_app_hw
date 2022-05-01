@@ -9,6 +9,14 @@
   </head>
   <body>
     <div class="container book__container">
+        <div>
+            <button type="button" class="btn btn-secondary shows__button"><a href="/books/">books all</a></button>
+            <button type="button" class="btn btn-secondary shows__button"><a href="/books/fantastic">Fantastic</a></button>
+            <button type="button" class="btn btn-secondary shows__button"><a href="/books/literature">Literature</a></button>
+            <button type="button" class="btn btn-secondary shows__button"><a href="/books/autobiography">Autobiography</a></button>
+            <button type="button" class="btn btn-secondary shows__button"><a href="/books/manga">Manga</a></button>
+            <button type="button" class="btn btn-secondary shows__button"><a href="/books/detective">Detective</a></button>
+        </div>
         <div class="row gy-5">
             {% for book in books %}
             <div class="col-3">
