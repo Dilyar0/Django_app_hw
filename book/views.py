@@ -1,71 +1,55 @@
 from django.shortcuts import render, get_object_or_404
 from . import models, forms
 from django.shortcuts import redirect, reverse
+from django.views import generic
 
 
-def book_all(request):
-    books = models.Book.objects.all()
-    return render(request, "book_list.html", {"books": books})
+class BookListView(generic.ListView):
+    template_name = "book_list.html"
+    queryset = models.Book.objects.order_by("-id")
+
+    def get_queryset(self):
+        return self.queryset
 
 
-def book_detail(request, id):
-    book = get_object_or_404(models.Book, id=id)
-    return render(request, "book_detail.html", {"book": book})
+class BookDetailView(generic.DetailView):
+    template_name = "book_detail.html"
 
-#======================================================================================
-
-def books_genre_fantastic(request):
-    books = models.Book.objects.filter(genre="fantastic").order_by("-id")
-    return render(request, "book_list.html", {"books": books})
+    def get_object(self, **kwargs):
+        shows_id = self.kwargs.get("id")
+        return get_object_or_404(models.Book, id=shows_id)
 
 
-def books_genre_literature(request):
-    books = models.Book.objects.filter(genre="literature").order_by("-id")
-    return render(request, "book_list.html", {"books": books})
+# ========================================================================================
+class BooksAddView(generic.CreateView):
+    template_name = "add_books.html"
+    form_class = forms.BookForm
+    queryset = models.Book.objects.all()
+    success_url = "/books/"
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super(BooksAddView, self).form_valid(form=form)
 
 
-def books_genre_autobiography(request):
-    books = models.Book.objects.filter(genre="autobiography").order_by("-id")
-    return render(request, "book_list.html", {"books": books})
+class BooksUpdateView(generic.UpdateView):
+    template_name = "books_update.html"
+    form_class = forms.BookForm
+    success_url = "/books/"
+
+    def get_object(self, **kwargs):
+        shows_id = self.kwargs.get("id")
+        return get_object_or_404(models.Book, id=shows_id)
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super(BooksUpdateView, self).form_valid(form=form)
 
 
-def books_genre_manga(request):
-    books = models.Book.objects.filter(genre="manga").order_by("-id")
-    return render(request, "book_list.html", {"books": books})
+class BooksDeleteView(generic.DeleteView):
+    success_url = "/books/"
+    template_name = "confirm_delete_book.html"
 
-
-def books_genre_detective(request):
-    books = models.Book.objects.filter(genre="detective").order_by("-id")
-    return render(request, "book_list.html", {"books": books})
-
-
-#========================================================================================
-
-def add_book(request):
-    method = request.method
-    if method == "POST":
-        form = forms.BookForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse("books:book_all"))
-    else:
-        form = forms.BookForm()
-    return render(request, "add_books.html", {'form': form})
-
-
-def update_book(request, id):
-    book_id = get_object_or_404(models.Book, id=id)
-    if request.method == "POST":
-        form = forms.BookForm(instance=book_id, data=request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse("books:book_all"))
-    else:
-        form = forms.BookForm(instance=book_id)
-    return render(request, "books_update.html", {"form": form, "book": book_id})
-
-
-def delete_book(request, id):
-    book_id = get_object_or_404(models.Book, id=id)
-    book_id.delete()
-    return redirect(reverse("books:book_all"))
+    def get_object(self, **kwargs):
+        shows_id = self.kwargs.get("id")
+        return get_object_or_404(models.Book, id=shows_id)

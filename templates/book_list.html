@@ -18,7 +18,7 @@
             <button type="button" class="btn btn-secondary shows__button"><a href="/books/detective">Detective</a></button>
         </div>
         <div class="row gy-5">
-            {% for book in books %}
+            {% for book in object_list %}
             <div class="col-3">
                 <div class="card">
                     <img src="{{ book.image.url }}" class="card-img-top book__img" alt="...">

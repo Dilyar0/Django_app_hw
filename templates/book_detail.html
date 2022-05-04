@@ -9,18 +9,18 @@
     <body>
         <div class="container">
             <div>
-                <h2 >{{ book.title }}</h2>
+                <h2 >{{ object.title }}</h2>
                 <div class="img">
                     <img src="{{ book.image.url }}" alt="">
                 </div>
-                <p>Автор: {{ book.author }}</p>
-                <p>genre: {{ book.genre }}</p>
-                <span class="date">Дата добавление: {{ book.create_date }} |</span>
-                <span class="date">Дата обновление: {{ book.update_date }}</span>
+                <p>Автор: {{ object.author }}</p>
+                <p>genre: {{ object.genre }}</p>
+                <span class="date">Дата добавление: {{ object.create_date }} |</span>
+                <span class="date">Дата обновление: {{ object.update_date }}</span>
                 <p>{{ book.description }}</p>
                 <a href="/add-book/">Add new book</a>
-                <a href="/books/{{ book.id }}/update/">update {{ book.title }}</a>
-                <a href="/books/{{ book.id }}/delete/">delete {{ book.title }}</a>
+                <a href="/books/{{ object.id }}/update/">update {{ object.title }}</a>
+                <a href="/books/{{ object.id }}/delete/">delete {{ object.title }}</a>
             </div>
             <div>
                 <h3>Review: </h3>
