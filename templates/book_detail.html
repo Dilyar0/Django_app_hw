@@ -8,24 +8,30 @@
     </head>
     <body>
         <div class="container">
-            <h2 >{{ book.title }}</h2>
-            <div class="img">
-                <img src="{{ book.image.url }}" alt="">
+            <div>
+                <h2 >{{ book.title }}</h2>
+                <div class="img">
+                    <img src="{{ book.image.url }}" alt="">
+                </div>
+                <p>Автор: {{ book.author }}</p>
+                <p>genre: {{ book.genre }}</p>
+                <span class="date">Дата добавление: {{ book.create_date }} |</span>
+                <span class="date">Дата обновление: {{ book.update_date }}</span>
+                <p>{{ book.description }}</p>
+                <a href="/add-book/">Add new book</a>
+                <a href="/books/{{ book.id }}/update/">update {{ book.title }}</a>
+                <a href="/books/{{ book.id }}/delete/">delete {{ book.title }}</a>
             </div>
-            <p>Автор: {{ book.author }}</p>
-            <span class="date">Дата добавление: {{ book.create_date }} |</span>
-            <span class="date">Дата обновление: {{ book.update_date }}</span>
-            <p>{{ book.description }}</p>
-        </div>
-        <div class="container">
-            <h3>Review: </h3>
-            <ul>
-                {% for i in book.Book_feed_back.all %}
-                    <li>
-                        <p>{{ i.text }}</p>
-                    </li>
-                {% endfor %}
-            </ul>
+            <div>
+                <h3>Review: </h3>
+                <ul>
+                    {% for i in book.Book_feed_back.all %}
+                        <li>
+                            <p>{{ i.text }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </body>
 </html>
